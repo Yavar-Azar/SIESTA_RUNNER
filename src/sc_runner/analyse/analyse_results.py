@@ -11,12 +11,11 @@ from sc_runner.constants import (
     SIESTA_OUT,
 )
 
-from sc_runner.analyse.sinle_point.band_plotly_json import plot_band_go
-from sc_runner.analyze.single_point.dos import process_dos_file
-from simune_runner.analyze.single_point.netcdf_to_json import nc_parser
-from simune_runner.analyze.single_point.band_plotly_json import plot_band_go
-from simune_runner.analyze.single_point.siesta_output_parser import extract_selected_results
-from simune_runner.types import ProjectType
+from sc_runner.analyse.single_point.dos import process_dos_file
+from sc_runner.analyse.single_point.netcdf_to_json import nc_parser
+from sc_runner.analyse.single_point.band_plotly_json import plot_band_go
+from sc_runner.analyse.single_point.siesta_output_parser import extract_selected_results
+from sc_runner.types import ProjectType
 
 
 def setup_logging(log_file: str = "task_log.log", level: int = logging.INFO) -> None:

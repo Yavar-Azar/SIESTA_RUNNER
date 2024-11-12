@@ -8,6 +8,11 @@ import numpy as np  # type: ignore
 import plotly.graph_objects as go  # type: ignore
 import plotly.io as pio  # type: ignore
 from plotly.offline import plot  # type: ignore
+from sc_runner.constants import (  # type: ignore
+    CALC_RESULT_JSON,
+    GENERAL_INFO_JSON,
+    SIESTA_OUT,
+)
 
 
 color_pallete = [
@@ -40,7 +45,7 @@ def result_2_dict() -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: Dictionary containing necessary data for plotting the band structure.
     """
-    band_dict = json.loads(Path('calc_results_task.json').read_text())['bandstructure']
+    band_dict = json.loads(Path(CALC_RESULT_JSON).read_text())['bandstructure']
 
     data_shape = band_dict['energies']['__ndarray__'][0]
     n_spin, n_k, n_bands = data_shape
