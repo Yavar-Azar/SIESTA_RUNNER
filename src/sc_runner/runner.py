@@ -139,12 +139,8 @@ def save_results_to_json(results, output_file):
         results (dict): Results dictionary from the Siesta calculation.
         output_file (str): Path to the output JSON file.
     """
-    selected_keys = [
-        'n_grid_point', 'energy', 'free_energy', 'stress', 'forces',
-        'fermi_energy', 'eigenvalues', 'kpoints', 'kweights', 'dipole'
-    ]
-    filtered_results = {key: results.get(key) for key in selected_keys}
-    jsonio.write_json(output_file, filtered_results)
+
+    jsonio.write_json(output_file, results)
     logging.info(f"Results saved to {output_file}")
 
 

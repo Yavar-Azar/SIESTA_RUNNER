@@ -13,7 +13,11 @@ ase = "^3.23.0"
 requests = "^2.32.3"
 plotly = "^5.24.1"
 pandas = "^2.2.3"
+netcdf4 = "^1.7.2"
 
 [build-system]
 requires = ["poetry-core>=1.6.1"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+siesta-runner = "sc_runner.__main__:main"

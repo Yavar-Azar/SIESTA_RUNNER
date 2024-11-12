@@ -5,14 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1588682d-53f8-4c46-ace8-f3bd9ca65c06" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/poetry.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/analyse/single_point/dos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/analyse/single_point/netcdf_to_json.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/analyse/single_point/siesta_output_parser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/analyse/analyse_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/analyse/analyse_results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/analyse/sinle_point/band_plotly_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/analyse/single_point/band_plotly_json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/monitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/runner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,14 +51,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;3-add-new-analysis&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yavar02/GITHUB/SIESTA_RUNNER/src/sc_runner/analyse&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/sc_runner/analyse" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-98f27166c754-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.21829.153" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -52,5 +85,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/sc_runner/analyse/single_point/band_plotly_json.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

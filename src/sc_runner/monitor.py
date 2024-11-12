@@ -3,7 +3,7 @@ import logging
 import os
 import time
 from sc_runner.signal_sender import send_update
-from sc_runner.config import REQUEST_INTERVAL
+from sc_runner.constants import REQUEST_INTERVAL
 
 def monitor_job(output_file_path: str, project_id: int, token: str, backend_url: str):
     """
