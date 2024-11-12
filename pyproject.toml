@@ -14,7 +14,6 @@ requests = "^2.32.3"
 plotly = "^5.24.1"
 pandas = "^2.2.3"
 
-
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.6.1"]
 build-backend = "poetry.core.masonry.api"
