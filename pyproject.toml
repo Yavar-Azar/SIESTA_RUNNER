@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "siesta-runner"
+version = "0.1.0"
+description = ""
+authors = ["Yavar <y.t.azar@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "sc_runner", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ase = "^3.23.0"
+requests = "^2.32.3"
+plotly = "^5.24.1"
+pandas = "^2.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
