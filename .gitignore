@@ -1,11 +1,21 @@
+# Ignore Python cache directories
+__pycache__/
+
 # Ignore distribution/build directories
-dist
-build
-temp
+dist/
+build/
+temp/
 
 # Ignore IDE settings
-.idea
+.idea/
 
 # Ignore Python environment files
 .python-version
-.venv
+.venv/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
