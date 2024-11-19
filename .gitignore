@@ -1,2 +1,11 @@
+# Ignore distribution/build directories
 dist
+build
 temp
+
+# Ignore IDE settings
+.idea
+
+# Ignore Python environment files
+.python-version
+.venv

@@ -3,6 +3,9 @@ import logging
 from ase import Atoms
 from ase.calculators.siesta import Siesta
 from ase.io import jsonio
+from ase.io.trajectory import Trajectory
+from sc_runner.types import ProjectType
+from ase.optimize import BFGS
 
 # Environment configuration
 #os.environ['ASE_SIESTA_COMMAND'] = 'srun siesta < PREFIX.fdf > PREFIX.out'
@@ -114,18 +117,40 @@ def configure_calculator():
         return None
 
 
-def run_calculation():
+def run_calculation(project_type):
     """
-    Runs the Siesta calculation and saves the results to JSON files.
+    Runs the Siesta calculation with optional trajectory logging.
+
+    Args:
+        project_type (ProjectType): The type of project (SINGLE_POINT, MD, or GEOMETRY_OPTIMIZATION).
     """
     atoms = configure_calculator()
     if atoms:
         logging.info("Starting calculation.")
         try:
-            energy = atoms.get_potential_energy()
+            if project_type == ProjectType.GEOMETRY_OPTIMIZATION:
+                # Perform geometry optimization and log trajectory
+                traj = Trajectory('geometry_optimization.traj', 'w', atoms)
+                optimizer = BFGS(atoms, trajectory=traj, logfile='optimization.log')
+                optimizer.run(fmax=0.02)
+                traj.close()
+                logging.info("Geometry optimization completed successfully.")
+
+            elif project_type == ProjectType.MD:
+                # Example: Molecular dynamics setup (custom logic might apply)
+                traj = Trajectory('md_simulation.traj', 'w', atoms)
+                # Add MD implementation here
+                traj.close()
+                logging.info("Molecular dynamics simulation completed successfully.")
+
+            else:
+                # Single-point calculation
+                atoms.get_potential_energy()
+                logging.info("Single-point calculation completed successfully.")
+
+            # Save final results
             full_results = atoms.calc.results
             save_results_to_json(full_results, RESULTS_FILE)
-            logging.info("Calculation completed successfully.")
         except Exception as e:
             logging.error(f"Calculation failed: {e}")
     else:
