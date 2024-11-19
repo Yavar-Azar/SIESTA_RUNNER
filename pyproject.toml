@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "siesta-runner"
-version = "0.2.0"
+version = "0.3.0"
 description = ""
 authors = ["Yavar <y.t.azar@gmail.com>"]
 license = "MIT"
