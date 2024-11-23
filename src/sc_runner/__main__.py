@@ -21,6 +21,29 @@ def generate_random_token(length=12):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 
+def check_siesta_completion(output_):
+    """
+    Check if 'Job completed' is present in the last non-empty line of siesta.out.
+    """
+    try:
+        with open(output_, 'r') as f:
+            # Read lines and filter out empty or whitespace-only lines
+            lines = [line.strip() for line in f if line.strip()]
+
+            if lines and lines[-1] == "Job completed":
+                return True
+            else:
+                logging.warning(
+                    "SIESTA job did not complete successfully. No 'Job completed' message found in the last meaningful line.")
+                return False
+    except FileNotFoundError:
+        logging.error(f"Output file {output_} not found.")
+        return False
+    except Exception as e:
+        logging.error(f"Error reading output file {output_}: {e}")
+        return False
+
+
 def main():
     # Read token and project ID from environment variables
     project_id = os.getenv('PROJECT_ID')
@@ -63,8 +86,12 @@ def main():
     job_process.join()
     time.sleep(2)
 
-    # Perform analysis after calculation
-    Analysis(project_type=project_type).perform_analysis()
+    # Check if the job completed successfully
+    if check_siesta_completion(output_file_path):
+        # Perform analysis after successful calculation
+        Analysis(project_type=project_type).perform_analysis()
+    else:
+        logging.error("Analysis skipped due to incomplete job.")
 
     # Stop the monitor process
     monitor_process.terminate()

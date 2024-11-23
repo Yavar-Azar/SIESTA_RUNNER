@@ -6,6 +6,8 @@ from ase.io import jsonio
 from ase.io.trajectory import Trajectory
 from sc_runner.types import ProjectType
 from ase.optimize import BFGS
+from ase.constraints import FixAtoms
+from ase.filters import FrechetCellFilter
 
 # Environment configuration
 #os.environ['ASE_SIESTA_COMMAND'] = 'srun siesta < PREFIX.fdf > PREFIX.out'
@@ -129,13 +131,7 @@ def run_calculation(project_type):
         logging.info("Starting calculation.")
         try:
             if project_type == ProjectType.GEOMETRY_OPTIMIZATION:
-                # Perform geometry optimization and log trajectory
-                traj = Trajectory('geometry_optimization.traj', 'w', atoms)
-                optimizer = BFGS(atoms, trajectory=traj, logfile='optimization.log')
-                optimizer.run(fmax=0.02)
-                traj.close()
-                logging.info("Geometry optimization completed successfully.")
-
+                run_geometry_optimization(atoms)
             elif project_type == ProjectType.MD:
                 # Example: Molecular dynamics setup (custom logic might apply)
                 traj = Trajectory('md_simulation.traj', 'w', atoms)
@@ -157,6 +153,27 @@ def run_calculation(project_type):
         logging.error("Calculation could not start due to an error in configuration.")
 
 
+def run_geometry_optimization(atoms):
+    """Run geometry optimization with logging and constraints."""
+    parameters_dict = load_json_data(PARAMETERS_JSON)
+    fixed_atoms = parameters_dict['optInputs']['atomInds']
+    cell_const = parameters_dict['optInputs']['cellConstraints']
+    traj = Trajectory('geometry_optimization.traj', 'w', atoms)
+    if fixed_atoms:
+        c = FixAtoms(indices=fixed_atoms)
+        atoms.set_constraint(c)
+        logging.info("\nFixed atoms constraint added to optimizer\n")
+    if cell_const:
+        fc = FrechetCellFilter(atoms, mask=cell_const)
+        optimizer = BFGS(fc, trajectory=traj, logfile='optimization.log')
+        logging.info("\nFixed cell constraint added to optimizer\n")
+    else:
+        optimizer = BFGS(atoms, trajectory=traj, logfile='optimization.log')
+    optimizer.run(fmax=0.02)
+    traj.close()
+    logging.info("Geometry optimization completed successfully.")
+
+
 def save_results_to_json(results, output_file):
     """Filters and saves selected results to JSON using ASE's jsonio.
 
@@ -171,3 +188,4 @@ def save_results_to_json(results, output_file):
 
 if __name__ == "__main__":
     run_calculation()
+
