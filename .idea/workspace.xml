@@ -5,14 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71b09b08-d13a-4f0f-8881-7dc19c777bb5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/analyse/analyse_trajectory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sc_runner/analyse/single_point/pdos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sc_runner/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sc_runner/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/runner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sc_runner/analyse/analyse_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/sc_runner/analyse/analyse_results.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
