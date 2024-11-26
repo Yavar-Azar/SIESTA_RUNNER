@@ -57,7 +57,7 @@ class Analysis:
                 self._analyze_single_point()
             elif self.project_type == ProjectType.MD:
                 self._analyze_md()
-            elif self.project_type == ProjectType.RELAX:
+            elif self.project_type == ProjectType.GEOMETRY_OPTIMIZATION:
                 self._analyze_relax()
         except Exception as e:
             logging.error(f"Error during {self.project_type.value} analysis: {e}")
