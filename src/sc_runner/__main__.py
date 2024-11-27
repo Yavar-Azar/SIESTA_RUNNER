@@ -79,7 +79,7 @@ def main():
     # Load parameters from JSON file
     try:
         parameters = load_parameters(PARAMETERS_JSON)
-        project_type_str = parameters.get("project_type", "single_point").lower()  # Default to 'single_point'
+        project_type_str = parameters.get("projectType", "single_point").lower()  # Default to 'single_point'
         project_type = ProjectType[project_type_str.upper()]
     except KeyError:
         logging.error("Invalid project_type in parameters.json. Defaulting to 'single_point'.")
