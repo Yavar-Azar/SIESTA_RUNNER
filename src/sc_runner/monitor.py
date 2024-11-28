@@ -13,7 +13,7 @@ def monitor_job(output_file_path: str, project_id: int, token: str, backend_url:
 
     while True:
         if os.path.exists(output_file_path) and os.path.getmtime(output_file_path) > initial_mod_time:
-            send_update(project_id, output_file_path, token, backend_url)
+            send_update(project_id, status='ruuning', token=token, backend_url=backend_url)
             initial_mod_time = os.path.getmtime(output_file_path)
             logging.info(f"File modified for project {project_id}, update sent.")
 
