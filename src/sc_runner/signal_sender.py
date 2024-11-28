@@ -18,7 +18,7 @@ def send_update(project_id: int, status: str, token: str, backend_url: str) -> N
         backend_url (str): Backend URL to send the data to.
     """
     logging.info(f">>>>>>>>>>>>>>>>>>>>>> \n Sending update for project {project_id} with status: {status}\n")
-    url = f"{backend_url}/resultupload/{project_id}/"
+    url = f"{backend_url}/{project_id}/"
     headers = {
         "Authorization": f"Token {token}",
         "Content-Type": "application/json"
@@ -28,9 +28,10 @@ def send_update(project_id: int, status: str, token: str, backend_url: str) -> N
     }
 
     try:
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data, verify=False)
         response.raise_for_status()
-        logging.info(f"Successfully sent update for project {project_id} with status {response.status_code}")
+        logging.info(f"Successfully sent update for project {project_id} "
+                     f"with status {response.status_code}, response json is :  {response.json()}")
     except requests.RequestException as e:
         logging.error(f"Error sending update for project {project_id}: {e}")
 

@@ -5,14 +5,19 @@ import string
 import os
 import time
 from multiprocessing import Process
+
+import sc_runner.constants
 from sc_runner.runner import run_calculation
 from sc_runner.monitor import monitor_job
 from sc_runner.constants import LOG_FILE, output_file_path, backend_url
 from sc_runner.analyse.analyse_results import Analysis
 from sc_runner.types import ProjectType
+from sc_runner.monitor import send_update
+from sc_runner.constants import REQUEST_INTERVAL
 
 
 PARAMETERS_JSON = 'parameters.json'
+
 
 def generate_random_token(length=12):
     """
@@ -20,25 +25,44 @@ def generate_random_token(length=12):
     """
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
-def check_siesta_completion(output_):
+
+def check_siesta_completion(output_, project_type):
     """
-    Check if 'Job completed' is present in the last non-empty line of siesta.out.
+    Check if the job completed successfully based on the project type.
+
+    Args:
+        output_ (str): Path to the `siesta.out` file.
+        project_type (ProjectType): Type of the project.
+
+    Returns:
+        bool: True if the job is complete, False otherwise.
     """
     try:
-        with open(output_, 'r') as f:
-            lines = [line.strip() for line in f if line.strip()]
-            if lines and lines[-1] == "Job completed":
+        if project_type == ProjectType.GEOMETRY_OPTIMIZATION:
+            traj_file = "geometry_optimization.traj"  # Replace with actual path if needed
+            if os.path.exists(traj_file) and os.path.getsize(traj_file) > 0:
+                logging.info("Optimization job completed successfully. Trajectory file found.")
                 return True
             else:
-                logging.warning(
-                    "SIESTA job did not complete successfully. No 'Job completed' message found in the last meaningful line.")
+                logging.warning("Optimization job did not complete successfully. Trajectory file is missing or empty.")
                 return False
+        else:
+            with open(output_, 'r') as f:
+                lines = [line.strip() for line in f if line.strip()]
+                if lines and lines[-1] == "Job completed":
+                    return True
+                else:
+                    logging.warning(
+                        "SIESTA job did not complete successfully. "
+                        "No 'Job completed' message found in the last meaningful line.")
+                    return False
     except FileNotFoundError:
         logging.error(f"Output file {output_} not found.")
         return False
     except Exception as e:
         logging.error(f"Error reading output file {output_}: {e}")
         return False
+
 
 def load_parameters(file_path):
     """
@@ -60,13 +84,14 @@ def load_parameters(file_path):
         logging.error(f"Error decoding JSON from {file_path}: {e}")
         raise
 
+
 def main():
     """
     Main function to coordinate calculation, monitoring, and analysis.
     """
     # Read token and project ID from environment variables
-    project_id = os.getenv('PROJECT_ID')
-    token = os.getenv('TOKEN')
+    project_id = os.getenv('PROJECT_ID', 63)
+    token = os.getenv('TOKEN', 'absjhagkggdkfg')
 
     if not project_id:
         logging.warning("PROJECT_ID is not set. Using default value 'default_project_id'.")
@@ -90,7 +115,6 @@ def main():
 
     # Set up logging
     logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
     # Set up processes for calculation and monitoring
     job_process = Process(target=run_calculation, args=(project_type,))
     monitor_process = Process(target=monitor_job, args=(output_file_path, project_id, token, backend_url))
@@ -105,11 +129,15 @@ def main():
         # Wait for job completion
         job_process.join()
         time.sleep(2)
+        monitor_process.terminate()
 
         # Check if the job completed successfully
-        if check_siesta_completion(output_file_path):
+        if check_siesta_completion(output_file_path, project_type):
             logging.info("Job completed successfully. Starting analysis.")
             Analysis(project_type=project_type).perform_analysis()
+            logging.info("Sending final update after job completion.")
+            time.sleep(REQUEST_INTERVAL)
+            send_update(project_id, status='completed', token=token, backend_url=backend_url)
         else:
             logging.error("Analysis skipped due to incomplete job.")
     except Exception as e:
@@ -117,7 +145,7 @@ def main():
     finally:
         # Ensure monitor process is terminated
         logging.info("Terminating monitor process.")
-        monitor_process.terminate()
+
 
 if __name__ == "__main__":
     main()
